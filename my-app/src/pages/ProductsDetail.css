@@ -1,0 +1,24 @@
+.product,
+.productImg,
+.shoppingmall,
+.hashtag,
+.review,
+.productDetail {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem 1rem 1rem 1rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productImg {
+  margin: 10px;
+  float: left;
+}
+
+.hashtag,
+.review {
+  margin: 5px;
+}
