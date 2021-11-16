@@ -11,7 +11,7 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "텐트|타프",
+    title: "텐트 | 타프",
     path: "/products",
     icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
@@ -36,67 +36,68 @@ export const SidebarData = [
     ],
   },
   {
-    title: "침낭|매트",
+    title: "침낭 | 매트",
     path: "/team",
     icon: <IoIcons.IoMdPeople />,
     cName: "nav-text",
   },
   {
-    title: "캠핑퍼니처",
+    title: "캠핑 퍼니처",
+    path: "/messages",
+    icon: <FaIcons.FaEnvelopeOpenText />,
+    cName: "nav-text",
+  },
+
+  {
+    title: "버너 | 랜턴",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
   },
   {
-    title: "버너|랜턴|릴선",
+    title: "화로 | BBQ | 연료",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
   },
+
   {
-    title: "화로|BBQ|연료",
+    title: "키친 | 쿨러",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
   },
+
   {
-    title: "키친|쿨러",
+    title: "난로 | 냉난방",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
   },
+
   {
-    title: "난로|냉난방",
+    title: "가방 | 케이스",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
   },
+
   {
-    title: "가방|케이스|수납박스",
+    title: "트레일러 | RV용품",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
   },
+
   {
-    title: "트레일러|RV용품",
+    title: "캠핑공구 | 소품",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
   },
+ 
   {
-    title: "캠핑공구|소품",
-    path: "/messages",
-    icon: <FaIcons.FaEnvelopeOpenText />,
-    cName: "nav-text",
-  },
-  {
-    title: "바베큐|캠핑 식품",
-    path: "/messages",
-    icon: <FaIcons.FaEnvelopeOpenText />,
-    cName: "nav-text",
-  },
-  {
-    title: "캠핑의류|잡화",
+    title: "캠핑의류 | 잡화",
     path: "/messages",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",

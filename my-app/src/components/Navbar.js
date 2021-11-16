@@ -56,8 +56,8 @@ function Navbar() {
             </table>
             <nav className="navigation">
               <ul>
-                <li>[최근 본 상품] </li>
-                <li>[로그인]</li>
+                <li>로그인</li>
+                <li>최근 본 상품</li>
               </ul>
             </nav>
           </div>

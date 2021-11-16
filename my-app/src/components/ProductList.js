@@ -13,21 +13,17 @@ class ProductList extends Component {
   render() {
     return (
       <div className="main-content">
-        <div className="product">
-          <h4>해시태그 박스</h4>
-          <p>입력될 해시태그</p>
+        <div className="hashtag">
+          <h4>해시태그 : </h4>
+          <p>#해시태그</p>
         </div>
         <div>
-          상품목록
-          {/* <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow /> */}
+          <h3>상품목록</h3>
           {ProductData.map((item, index) => {
             return (
               <div key={index} className="product">
                 <div className="productImage">
-                  <img src={item.ProductImg} height="150"></img>
+                  <img src={item.ProductImg}></img>
                 </div>
                 <div className="product-title">{item.ProductName}</div>
                 <div className="product-price">{item.ProductPrice}</div>
