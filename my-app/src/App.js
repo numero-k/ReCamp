@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Reports from "./pages/Reports";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductsDetail";
+
 function App() {
   return (
     <>
