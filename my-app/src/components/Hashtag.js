@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { data } from "./HashtagData";
-
+import { Reviewdata } from "./TentReview_count";
 function Hashtag() {
   const [state, setstate] = useState("black");
 
@@ -26,6 +26,17 @@ function Hashtag() {
             >
               #{word}
             </StyledButton>
+          );
+        })}
+      </div>
+      <div>
+        {Reviewdata.map((item, i) => {
+          return (
+            <div>
+              {item.hashTagData.map((tem, j) => {
+                return <div>{tem.word}</div>;
+              })}
+            </div>
           );
         })}
       </div>

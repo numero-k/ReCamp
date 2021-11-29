@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import Reports from "./pages/Reports";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductsDetail";
-
+import Counter from "./components/Counter";
 function App() {
   return (
     <>
