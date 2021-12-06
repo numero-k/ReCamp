@@ -8,6 +8,7 @@ import "./Header.css";
 import { IconContext } from "react-icons";
 import axios from "axios";
 import ProductList from "./ProductList";
+import logo2 from "./img/logo2.png";
 
 export let searchText = "";
 function Navbar() {
@@ -35,7 +36,10 @@ function Navbar() {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="contents">
-            <div>로고 자리</div>
+            <div>
+              <img src={logo2} width="170px" height="80px" alt="logo2"></img>
+            </div>
+            <div style={{ height: "100px" }}></div>
             <div style={{ height: "60px" }}></div>
             <table className={"table"}>
               <tr>
