@@ -11,7 +11,7 @@ import ProductDetail from "./pages/ProductsDetail";
 import Counter from "./components/Counter";
 import axios from "axios";
 import login from "./pages/login";
-import signup from "./pages/signup";
+import Signup from "./pages/Signup";
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   _dbTest = async () => {
-    const res = await axios.get("/api/test");
+    const res = await axios.get("/api");
     console.log(res.data);
   };
 
@@ -42,7 +42,7 @@ class App extends Component {
             <Route path="/products" component={Products} />
             <Route path="/productDetail" component={ProductDetail} />
             <Route path="/login" component={login} />
-            <Route path="/signup" component={signup} />
+            <Route path="/Signup" component={Signup} />
           </Switch>
         </Router>
       </>

@@ -29,18 +29,18 @@ function ProductList() {
   if (localStorage.getItem("키")) {
     var lastData = localStorage.getItem("키");
   }
-  if (lastData !== "") {
-    for (let i = 0; i < hashTag_Top10.length; ++i) {
-      if (lastData.includes(hashTag_Top10[i]) && !hashFlag) {
-        if (!currentHash.includes(hashTag_Top10[i])) {
-          currentHash.push(hashTag_Top10[i]);
-          hashFlag = true;
-        }
-        lastData = "";
-        //setHash(currentHash);
-      }
-    }
-  }
+  // if (lastData !== "") {
+  //   for (let i = 0; i < hashTag_Top10.length; ++i) {
+  //     if (lastData.includes(hashTag_Top10[i]) && !hashFlag) {
+  //       if (!currentHash.includes(hashTag_Top10[i])) {
+  //         currentHash.push(hashTag_Top10[i]);
+  //         hashFlag = true;
+  //       }
+  //       lastData = "";
+  //       //setHash(currentHash);
+  //     }
+  //   }
+  // }
 
   const Button = styled.button`
     background: linear-gradient(
