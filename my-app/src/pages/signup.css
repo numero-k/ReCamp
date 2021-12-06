@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  text-decoration: none;
+}
+
+body {
+  background-image: #34495e;
+}
+
+.joinForm {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  padding: 30px, 20px;
+  background-color: #ffffff;
+  text-align: center;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+}
+
+.joinForm h2 {
+  font-size: 32px;
+  text-align: center;
+  margin: 30px;
+}
+
+.textForm {
+  border-bottom: 2px solid #999;
+  margin: 30px;
+  padding: 20px 10px 10px;
+}
+
+.id {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #999;
+  font-size: 16px;
+  height: 25px;
+  background: none;
+}
+
+.pw {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #999;
+  font-size: 16px;
+  height: 25px;
+  background: none;
+}
+
+.name {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #999;
+  font-size: 16px;
+  height: 25px;
+  background: none;
+}
+
+.email {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #999;
+  font-size: 16px;
+  height: 25px;
+  background: none;
+}
+
+.btn {
+  position: relative;
+  left: 40%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  width: 80%;
+  height: 40px;
+  background: #166cea;
+  background-position: left;
+  background-size: 200%;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.4s;
+  display: inline;
+  border-radius: 20px;
+}
+
+.btn:hover {
+  background-position: right;
+}
+
+.textForm input:focus + label,
+.textForm input:valid + label {
+  top: 0;
+  font-size: 13px;
+  color: #166cea;
+}

@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { data } from "./HashtagData";
-import { Reviewdata } from "./TentReview_count";
-function Hashtag() {
+import { hashTag_Top10 } from "./TentHash";
+import { tentHash } from "./TentHash";
+
+import { Reviewdata } from "./Reviewdata";
+import Highlighter from "react-highlight-words";
+function Hashtag(rev) {
   const [state, setstate] = useState("black");
 
   const StyledButton = styled.button`
@@ -18,30 +21,31 @@ function Hashtag() {
     <div className="Hashtag">
       <div className="product-detail">
         <h2>해시태그</h2>
-        {data.map((word, index) => {
-          return (
-            <StyledButton
-              className="wordHashtag"
-              onClick={() => setstate("green")}
-            >
-              #{word}
-            </StyledButton>
-          );
-        })}
-      </div>
-      <div>
-        {Reviewdata.map((item, i) => {
+        {hashTag_Top10.map((word, index) => {
           return (
             <div>
-              {item.hashTagData.map((tem, j) => {
-                return <div>{tem.word}</div>;
-              })}
+              <StyledButton className="wordHashtag">#{word}</StyledButton>
+              <Highlighter
+                searchWords={[word]}
+                autoEscape={true}
+                textToHighlight={rev}
+              ></Highlighter>
             </div>
           );
         })}
       </div>
+      {/* <div>
+        {tentHash.map((item, i) => {
+          return <div>{item}</div>;
+        })}
+      </div> */}
     </div>
   );
 }
 
 export default Hashtag;
+//{
+//    item.map((tem, j) => {
+//      return <div>{tem}</div>;
+//    });
+//  }

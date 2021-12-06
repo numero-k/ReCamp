@@ -7,27 +7,23 @@ import "./Navbar.css";
 import "./Header.css";
 import { IconContext } from "react-icons";
 import axios from "axios";
+import ProductList from "./ProductList";
 
+export let searchText = "";
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
-
   const showSidebar = () => setSidebar(!sidebar);
   //const pageRe = () => {};
   const handleChagne = (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       // 엔터키가 눌리면
-      const textbox = {
-        inText: e.target.value, // 검색창에 입력된 값 저장
-      };
-      fetch("http://localhost:5000/text", {
-        // 크롤링 서버로 값 전송
-        method: "post", //통신방법
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(textbox), //textbox라는 객체를 보냄
-      });
+      searchText = e.target.value;
+      alert(searchText);
       e.target.value = "";
+      localStorage.setItem("키", searchText);
+      if (searchText.includes("텐트")) {
+        //document.location.href="/tent"
+      }
       document.location.href = "/products";
     }
   };
@@ -56,7 +52,10 @@ function Navbar() {
             </table>
             <nav className="navigation">
               <ul>
-                <li>로그인</li>
+                <Link to="/login">
+                  <li>로그인</li>
+                </Link>
+
                 <li>최근 본 상품</li>
               </ul>
             </nav>
