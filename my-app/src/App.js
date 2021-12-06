@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   _dbTest = async () => {
-    const res = await axios.get("/api/test");
+    const res = await axios.get("/api");
     console.log(res.data);
   };
 
