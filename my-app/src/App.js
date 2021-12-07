@@ -11,7 +11,6 @@ import ProductDetail from "./pages/ProductsDetail";
 import Counter from "./components/Counter";
 import axios from "axios";
 import login from "./pages/login";
-import Signup from "./pages/Signup";
 
 import Tent from "./pages/categories/Tent";
 import Burner from "./pages/categories/Burner";
@@ -55,7 +54,6 @@ class App extends Component {
             <Route path="/coppell" component={Coppell} />
             <Route path="/productDetail" component={ProductDetail} />
             <Route path="/login" component={login} />
-            <Route path="/Signup" component={Signup} />
           </Switch>
         </Router>
       </>
