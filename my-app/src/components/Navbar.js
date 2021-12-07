@@ -19,13 +19,9 @@ function Navbar() {
     if (e.keyCode === 13) {
       // 엔터키가 눌리면
       searchText = e.target.value;
-      alert(searchText);
       e.target.value = "";
-      localStorage.setItem("키", searchText);
-      if (searchText.includes("텐트")) {
-        //document.location.href="/tent"
-      }
-      document.location.href = "/products";
+
+      document.location.href = "/products?pagetitle=" + escape(searchText);
     }
   };
   return (
@@ -75,7 +71,14 @@ function Navbar() {
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <Link
+                    to={{
+                      pathname: item.path,
+                      state: {
+                        name: item.title,
+                      },
+                    }}
+                  >
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>

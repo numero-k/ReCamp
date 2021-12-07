@@ -3,19 +3,27 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import "./ProductList.css";
 
-import { tentReviewdata } from "./review/tentReview";
+import "../../components/ProductList.css";
+
 import styled, { css } from "styled-components";
 
 import Highlighter from "react-highlight-words";
-// import { searchText } from "./Navbar";
-let hashTag_Top10 = [];
 
-function ProductList() {
+function Tent() {
   const [currentHash, setHash] = useState([]);
-
+  const hashTag_Top10 = [
+    "\uc124\uce58",
+    "\uc544\uc774",
+    "\uc815\ub3c4",
+    "\uac00\uaca9",
+    "\uc778\uc6a9",
+    "\ud130\uce58",
+    "\uac00\uc871",
+    "\ubd80\ubd84",
+    "2",
+    "4",
+  ];
   const Box = styled.div`
     display: flex;
     justify-content: center;
@@ -34,7 +42,6 @@ function ProductList() {
       color: green;
     }
   `;
-  const tmpReview = tentReviewdata;
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,168 +53,13 @@ function ProductList() {
   const [color, setColor] = useState({ color: "black" });
 
   useEffect(() => {
-    //alert("카테고리" + document.location.state);
-    var params = document.location.search.substr(
-      document.location.search.indexOf("?") + 1
-    );
-    let temp = "";
-    var sval = "";
-
-    params = params.split("&");
-
-    for (var i = 0; i < params.length; i++) {
-      temp = params[i].split("=");
-
-      if ([temp[0]] == "pagetitle") {
-        sval = temp[1];
-      }
-    }
-
-    if (sval) {
-      if (unescape(sval).includes("텐트")) {
-        hashTag_Top10 = [
-          "\uc124\uce58",
-          "\uc544\uc774",
-          "\uc815\ub3c4",
-          "\uac00\uaca9",
-          "\uc778\uc6a9",
-          "\ud130\uce58",
-          "\uac00\uc871",
-          "\ubd80\ubd84",
-          "2",
-          "4",
-        ];
-        fetch("/api/dataReqTent", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
-      } else if (unescape(sval).includes("침낭")) {
-        hashTag_Top10 = [
-          "\uc9c0\ud37c",
-          "\uac00\uaca9",
-          "\uc774\ubd88",
-          "\uc0ac\uc6a9",
-          "\uc138\ud0c1",
-          "\ubd80\ud53c",
-          "\uc815\ub3c4",
-          "\uc7ac\uc9c8",
-          "\uc544\uc774",
-          "4",
-          "2",
-        ];
-        fetch("/api/dataReqSleep", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
-      } else if (unescape(sval).includes("코펠")) {
-        hashTag_Top10 = [
-          "\ub0c4\ube44",
-          "\ub9c8\uc81c",
-          "\uc778\uc6a9",
-          "\ub77c\uba74",
-          "\uc81c\uac70",
-          "\uc190\uc7a1\uc774",
-          "\uac00\ubc29",
-          "\ud6c4\ub77c\uc774\ud32c",
-          "\uac00\uaca9",
-          "4",
-          "5",
-        ];
-        fetch("/api/dataReqCop", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
-      } else if (unescape(sval).includes("타프")) {
-        hashTag_Top10 = [
-          "\uc124\uce58",
-          "\ud150\ud2b8",
-          "\ubc29\uc218",
-          "\uac00\uaca9",
-          "\uac00\uc131",
-          "\ubd80\ubd84",
-          "\ud558\ub098",
-          "\uace0\uc815",
-          "\ubc14\ub78c",
-          "2",
-          "3",
-        ];
-        fetch("/api/dataReqTarp", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
-      } else if (unescape(sval).includes("화로")) {
-        hashTag_Top10 = [
-          "\uace0\uae30",
-          "\uc5f0\ub8cc",
-          "\uace0\uccb4",
-          "\uc0ac\uc774\uc988",
-          "\uac00\uaca9",
-          "\uc815\ub9d0",
-          "\ubd80\ubd84",
-          "\uc815\ub3c4",
-          "\uadf8\ub9b4",
-          "2",
-          "3",
-        ];
-        fetch("/api/dataReqBrazier", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
-      } else if (unescape(sval).includes("버너")) {
-        hashTag_Top10 = [
-          "\uac00\uaca9",
-          "\ucf00\uc774\uc2a4",
-          "\uc0ac\uc6a9",
-          "\uc0ac\uc774\uc988",
-          "\ub0c4\ube44",
-          "\uace0\uae30",
-          "\ud734\ub300",
-          "\ubd80\ud0c4\uac00\uc2a4",
-          "1",
-          "4",
-        ];
-        fetch("/api/dataReqBurner", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
-      } else {
-        alert("검색결과가 없습니다.");
-        sval = null;
-      }
-      for (let i = 0; i < hashTag_Top10.length; ++i) {
-        if (unescape(sval).includes(hashTag_Top10[i])) {
-          currentHash.push(hashTag_Top10[i]);
-        }
-      }
-      // if (sval) {
-      //   for (let i = 0; i < hashTag_Top10.length; ++i) {
-      //     if (unescape(sval).includes(hashTag_Top10[i])) {
-      //       currentHash.push(hashTag_Top10[i]);
-      //     }
-      //   }
-      //   setHash(currentHash);
-      // }
-    }
-
-    //데이터 가져오기
+    fetch("/api/dataReqTent", {
+      method: "get",
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => setdbData(data));
+    console.log(dbData);
   }, []);
 
   /* 새로 추가한 부분 */
@@ -218,11 +70,6 @@ function ProductList() {
     currentPosts = tmp.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   }
-  // Reviewdata.sort((a, b) => {
-  //   if (a.ProductReview.length < b.ProductReview.length) return 1;
-  //   if (a.ProductReview.length > b.ProductReview.length) return -1;
-  //   return 0;
-  // });
 
   return (
     <div className="main-content">
@@ -270,6 +117,9 @@ function ProductList() {
         </option>
         <option value="sortPriceHigh">가격 높은 순</option>
         <option value="sortPriceLow">가격 낮은 순</option>
+
+        <option value="sortHashTag">해시태그와 관련 많은 순</option>
+        <option value="sortLike">좋아요가 많은 순</option>
       </select>
 
       <table>
@@ -472,4 +322,4 @@ function ProductList() {
 }
 //}
 
-export default ProductList;
+export default Tent;

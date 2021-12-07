@@ -6,14 +6,15 @@ header {
   margin-top: 2rem;
 }
 
-.productList-title{
-  font-size:140;
+.productList-title {
+  font-size: 140;
 }
 
 .product-title {
+  border: 1px;
   text-decoration-line: none;
   color: inherit;
-  font-size : 100%;
+  font-size: 100%;
 }
 
 .productList {
@@ -30,8 +31,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color : #eeeeee;
-
+  background-color: #eeeeee;
 }
 
 .hashtag {
