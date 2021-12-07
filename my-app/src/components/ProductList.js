@@ -15,6 +15,25 @@ let hashTag_Top10 = [];
 
 function ProductList() {
   const [currentHash, setHash] = useState([]);
+<<<<<<< HEAD
+=======
+  let hashFlag = false;
+  if (localStorage.getItem("키")) {
+    var lastData = localStorage.getItem("키");
+  }
+  // if (lastData !== "") {
+  //   for (let i = 0; i < hashTag_Top10.length; ++i) {
+  //     if (lastData.includes(hashTag_Top10[i]) && !hashFlag) {
+  //       if (!currentHash.includes(hashTag_Top10[i])) {
+  //         currentHash.push(hashTag_Top10[i]);
+  //         hashFlag = true;
+  //       }
+  //       lastData = "";
+  //       //setHash(currentHash);
+  //     }
+  //   }
+  // }
+>>>>>>> e973905a58aaafa8367fcfcd7d754cd77a263794
 
   const Box = styled.div`
     display: flex;
