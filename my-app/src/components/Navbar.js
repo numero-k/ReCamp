@@ -9,20 +9,26 @@ import { IconContext } from "react-icons";
 import axios from "axios";
 import ProductList from "./ProductList";
 import logo2 from "./img/logo2.png";
+import { navigate } from "@reach/router";
 
 export let searchText = "";
+
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+  const [linkText, setlinkText] = useState("");
   //const pageRe = () => {};
   const handleChagne = (e) => {
-    if (e.keyCode === 13) {
-      // 엔터키가 눌리면
-      searchText = e.target.value;
-      e.target.value = "";
+    //if (e.keyCode === 13) {
+    // 엔터키가 눌리면
+    searchText = e.target.value;
+    setlinkText(escape(searchText));
+    //e.target.value = "";
 
-      document.location.href = "/products?pagetitle=" + escape(searchText);
-    }
+    //navigate("/products/?pagetitle=" + escape(searchText));
+    // navigate("/products");
+    //document.location.reload();
+    //}
   };
   return (
     <>
@@ -33,7 +39,9 @@ function Navbar() {
           </Link>
           <div className="contents">
             <div>
-              <img src={logo2} width="170px" height="80px" alt="logo2"></img>
+              <Link to="/">
+                <img src={logo2} width="170px" height="80px" alt="logo2"></img>
+              </Link>
             </div>
             <div style={{ height: "100px" }}></div>
             <div style={{ height: "60px" }}></div>
@@ -45,18 +53,16 @@ function Navbar() {
                     className={"input-sm"}
                     size={"100"}
                     height={"50"}
-                    onKeyDown={handleChagne}
+                    onChange={handleChagne}
                   />
                 </td>
               </tr>
             </table>
             <nav className="navigation">
               <ul>
-                <Link to="/login">
-                  <li>로그인</li>
+                <Link to={"/products/?pagetitle=" + linkText}>
+                  <li>검색</li>
                 </Link>
-
-                <li>최근 본 상품</li>
               </ul>
             </nav>
           </div>

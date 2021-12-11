@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Reports from "./pages/Reports";
 import Products from "./pages/Products";
+import ProductList from "./components/ProductList";
 import ProductDetail from "./pages/ProductsDetail";
 import Counter from "./components/Counter";
 import axios from "axios";
@@ -18,6 +19,10 @@ import Brazier from "./pages/categories/Brazier";
 import Coppell from "./pages/categories/Coppell";
 import Tarp from "./pages/categories/Tarp";
 import SleepingBag from "./pages/categories/SleepingBag";
+import Amplify, { API } from "aws-amplify";
+import awsmobile from "./aws-exports";
+
+Amplify.configure(awsmobile);
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +50,8 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/reports" component={Reports} />
-            <Route path="/products" component={Products} />
+            <Route path="/products" component={ProductList} />
+            <Route path="/products/*" component={ProductList} />
             <Route path="/tent" component={Tent} />
             <Route path="/burner" component={Burner} />
             <Route path="/tarp" component={Tarp} />

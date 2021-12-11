@@ -18,7 +18,7 @@ app.get("/api/dataReqTent", (req, res) => {
         console.log("성공");
 
         res.send(rows);
-        //console.log(rows[0]);
+        console.log(rows[0]);
       }
     }
   );

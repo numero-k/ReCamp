@@ -9,6 +9,11 @@ import "../../components/ProductList.css";
 import styled, { css } from "styled-components";
 
 import Highlighter from "react-highlight-words";
+import ShowMoreText from "react-show-more-text";
+import Amplify, { API } from "aws-amplify";
+import awsconfig from "../../aws-exports";
+
+Amplify.configure(awsconfig);
 
 function Tent() {
   const [currentHash, setHash] = useState([]);
@@ -53,13 +58,20 @@ function Tent() {
   const [color, setColor] = useState({ color: "black" });
 
   useEffect(() => {
-    fetch("/api/dataReqTent", {
-      method: "get",
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => setdbData(data));
-    console.log(dbData);
+    // const items = API.get("api0a0ce0d7", "/items");
+    // console.log(items);
+    API.get("api0a0ce0d7", "/items/dataReqTent", {}).then((res) =>
+      //console.log(res)
+      setdbData(res)
+    );
+    // .then((data) => setdbData(data));
+    // fetch("/api/dataReqTent", {
+    //   method: "get",
+    //   mode: "cors",
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => setdbData(data));
+    // console.log(dbData);
   }, []);
 
   /* 새로 추가한 부분 */
@@ -74,9 +86,10 @@ function Tent() {
   return (
     <div className="main-content">
       {/* <Highlight fil={posts}></Highlight> */}
+      <p>해시태그 선택 시, 해당 내용이 포함된 리뷰만 보여집니다.</p>
 
-      <Box className="product">
-        <h2>해시태그</h2>
+      <h2>해시태그</h2>
+      <Box>
         {hashTag_Top10.map((word, index) => {
           return (
             <div>
@@ -99,11 +112,23 @@ function Tent() {
             </div>
           );
         })}
-        <h2>선택된 해시태그</h2>
+      </Box>
+      <h2>선택된 해시태그</h2>
+      <Box>
         {currentHash.map((i) => {
-          return <p>{i}</p>;
+          return (
+            <StyledButton
+              onClick={() => {
+                let fit = currentHash.filter((element) => element !== i);
+                setHash(fit);
+              }}
+            >
+              {i}
+            </StyledButton>
+          );
         })}
       </Box>
+
       <p>상품 정렬 기준</p>
       <select
         name="wayToSort"
@@ -117,13 +142,9 @@ function Tent() {
         </option>
         <option value="sortPriceHigh">가격 높은 순</option>
         <option value="sortPriceLow">가격 낮은 순</option>
-
-        <option value="sortHashTag">해시태그와 관련 많은 순</option>
-        <option value="sortLike">좋아요가 많은 순</option>
       </select>
-
+      <p>상품 이미지 클릭 시 해당 상품 판매 사이트로 이동합니다.</p>
       <table>
-        상품목록
         <tbody>
           {sortOpt === undefined &&
             dbData
@@ -141,7 +162,7 @@ function Tent() {
                   <tr key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -149,11 +170,13 @@ function Tent() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                       {/* <ShowMoreText more="...더보기" less="숨기기">
                       <Highlighter
                         searchWords={currentHash}
@@ -164,13 +187,6 @@ function Tent() {
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <Box className="product-price">{item.ProductPrice}</Box>
-                    <td>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </td>
-                    <td>
-                      <button>도움이 됐어요</button>
-                    </td>
                   </tr>
                 );
               })}
@@ -189,7 +205,7 @@ function Tent() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -197,21 +213,16 @@ function Tent() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <Box className="product-price">{item.ProductPrice}</Box>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}
@@ -236,7 +247,7 @@ function Tent() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -244,21 +255,16 @@ function Tent() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <div className="product-price">{item.ProductPrice}</div>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}
@@ -283,7 +289,7 @@ function Tent() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -291,21 +297,16 @@ function Tent() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <div className="product-price">{item.ProductPrice}</div>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}

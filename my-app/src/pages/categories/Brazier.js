@@ -3,13 +3,16 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import "./cate.css";
 import "../../components/ProductList.css";
 
 import styled, { css } from "styled-components";
-
+import ShowMoreText from "react-show-more-text";
 import Highlighter from "react-highlight-words";
+import Amplify, { API } from "aws-amplify";
+import awsconfig from "../../aws-exports";
 
+Amplify.configure(awsconfig);
 function Brazier() {
   const [currentHash, setHash] = useState([]);
   const hashTag_Top10 = [
@@ -31,7 +34,10 @@ function Brazier() {
   `;
   const TitleBox = styled.div`
     width: 10%;
+    margin: 5px;
+    padding: 5px;
   `;
+
   const ReviewBox = styled.div`
     width: 80%;
   `;
@@ -54,13 +60,10 @@ function Brazier() {
   const [color, setColor] = useState({ color: "black" });
 
   useEffect(() => {
-    fetch("/api/dataReqBrazier", {
-      method: "get",
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((data) => setdbData(data));
-    console.log(dbData);
+    API.get("api0a0ce0d7", "/items/dataReqBrazier", {}).then((res) =>
+      //console.log(res)
+      setdbData(res)
+    );
   }, []);
 
   /* 새로 추가한 부분 */
@@ -76,8 +79,10 @@ function Brazier() {
     <div className="main-content">
       {/* <Highlight fil={posts}></Highlight> */}
 
-      <Box className="product">
-        <h2>해시태그</h2>
+      <p>해시태그 선택 시, 해당 내용이 포함된 리뷰만 보여집니다.</p>
+
+      <h2>해시태그</h2>
+      <Box>
         {hashTag_Top10.map((word, index) => {
           return (
             <div>
@@ -100,9 +105,11 @@ function Brazier() {
             </div>
           );
         })}
-        <h2>선택된 해시태그</h2>
+      </Box>
+      <h2>선택된 해시태그</h2>
+      <Box>
         {currentHash.map((i) => {
-          return <p>{i}</p>;
+          return <StyledButton>{i}</StyledButton>;
         })}
       </Box>
       <p>상품 정렬 기준</p>
@@ -118,13 +125,9 @@ function Brazier() {
         </option>
         <option value="sortPriceHigh">가격 높은 순</option>
         <option value="sortPriceLow">가격 낮은 순</option>
-
-        <option value="sortHashTag">해시태그와 관련 많은 순</option>
-        <option value="sortLike">좋아요가 많은 순</option>
       </select>
 
       <table>
-        상품목록
         <tbody>
           {sortOpt === undefined &&
             dbData
@@ -142,7 +145,7 @@ function Brazier() {
                   <tr key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -150,11 +153,13 @@ function Brazier() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                       {/* <ShowMoreText more="...더보기" less="숨기기">
                       <Highlighter
                         searchWords={currentHash}
@@ -165,13 +170,6 @@ function Brazier() {
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <Box className="product-price">{item.ProductPrice}</Box>
-                    <td>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </td>
-                    <td>
-                      <button>도움이 됐어요</button>
-                    </td>
                   </tr>
                 );
               })}
@@ -190,7 +188,7 @@ function Brazier() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -198,21 +196,16 @@ function Brazier() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <Box className="product-price">{item.ProductPrice}</Box>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}
@@ -237,7 +230,7 @@ function Brazier() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -245,21 +238,16 @@ function Brazier() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <div className="product-price">{item.ProductPrice}</div>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}
@@ -284,7 +272,7 @@ function Brazier() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -292,21 +280,16 @@ function Brazier() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <div className="product-price">{item.ProductPrice}</div>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}

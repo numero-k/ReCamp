@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/items": {
+      "name": "/items",
+      "lambdaFunction": "recamp1deec0f6",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/dataReqTent": {
+      "name": "/dataReqTent",
+      "lambdaFunction": "recamp1deec0f6",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

@@ -81,3 +81,15 @@
 span {
   margin-left: 16px;
 }
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: #f5f5dc;
+}
+
+div {
+  text-align: center;
+}

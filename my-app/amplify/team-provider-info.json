@@ -1,0 +1,29 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-recamp-staging-62558-authRole",
+      "UnauthRoleArn": "arn:aws:iam::035482368492:role/amplify-recamp-staging-62558-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::035482368492:role/amplify-recamp-staging-62558-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-recamp-staging-62558-deployment",
+      "UnauthRoleName": "amplify-recamp-staging-62558-unauthRole",
+      "StackName": "amplify-recamp-staging-62558",
+      "StackId": "arn:aws:cloudformation:us-east-2:035482368492:stack/amplify-recamp-staging-62558/0a036d20-5982-11ec-8ab9-06350f6900ea",
+      "AmplifyAppId": "d3isnt2klryjv4"
+    },
+    "categories": {
+      "function": {
+        "recamp1deec0f6": {
+          "deploymentBucketName": "amplify-recamp-staging-62558-deployment",
+          "s3Key": "amplify-builds/recamp1deec0f6-5a6836335a4154743466-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3isnt2klryjv4",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}

@@ -19,33 +19,33 @@ export const SidebarData = [
   {
     title: "타프",
     path: "/tarp",
-    icon: <IoIcons.IoMdPeople />,
+    icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
   },
   {
     title: "침낭",
     path: "/sleepingbag",
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
   },
 
   {
     title: "버너",
     path: "/burner",
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
   },
   {
     title: "화로",
     path: "/brazier",
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
   },
 
   {
     title: "코펠",
     path: "/coppell",
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
   },
 ];

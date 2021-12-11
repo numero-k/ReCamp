@@ -8,8 +8,12 @@ import "./ProductList.css";
 
 import { tentReviewdata } from "./review/tentReview";
 import styled, { css } from "styled-components";
-
+import ShowMoreText from "react-show-more-text";
 import Highlighter from "react-highlight-words";
+import Amplify, { API } from "aws-amplify";
+import awsconfig from "../aws-exports";
+
+Amplify.configure(awsconfig);
 // import { searchText } from "./Navbar";
 let hashTag_Top10 = [];
 
@@ -77,13 +81,10 @@ function ProductList() {
           "2",
           "4",
         ];
-        fetch("/api/dataReqTent", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
+        API.get("api0a0ce0d7", "/items/dataReqTent", {}).then((res) =>
+          //console.log(res)
+          setdbData(res)
+        );
       } else if (unescape(sval).includes("침낭")) {
         hashTag_Top10 = [
           "\uc9c0\ud37c",
@@ -98,13 +99,10 @@ function ProductList() {
           "4",
           "2",
         ];
-        fetch("/api/dataReqSleep", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
+        API.get("api0a0ce0d7", "/items/dataReqSleep", {}).then((res) =>
+          //console.log(res)
+          setdbData(res)
+        );
       } else if (unescape(sval).includes("코펠")) {
         hashTag_Top10 = [
           "\ub0c4\ube44",
@@ -119,13 +117,10 @@ function ProductList() {
           "4",
           "5",
         ];
-        fetch("/api/dataReqCop", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
+        API.get("api0a0ce0d7", "/items/dataReqCop", {}).then((res) =>
+          //console.log(res)
+          setdbData(res)
+        );
       } else if (unescape(sval).includes("타프")) {
         hashTag_Top10 = [
           "\uc124\uce58",
@@ -140,13 +135,10 @@ function ProductList() {
           "2",
           "3",
         ];
-        fetch("/api/dataReqTarp", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
+        API.get("api0a0ce0d7", "/items/dataReqTarp", {}).then((res) =>
+          //console.log(res)
+          setdbData(res)
+        );
       } else if (unescape(sval).includes("화로")) {
         hashTag_Top10 = [
           "\uace0\uae30",
@@ -161,13 +153,10 @@ function ProductList() {
           "2",
           "3",
         ];
-        fetch("/api/dataReqBrazier", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
+        API.get("api0a0ce0d7", "/items/dataReqBrazier", {}).then((res) =>
+          //console.log(res)
+          setdbData(res)
+        );
       } else if (unescape(sval).includes("버너")) {
         hashTag_Top10 = [
           "\uac00\uaca9",
@@ -181,13 +170,10 @@ function ProductList() {
           "1",
           "4",
         ];
-        fetch("/api/dataReqBurner", {
-          method: "get",
-          mode: "cors",
-        })
-          .then((res) => res.json())
-          .then((data) => setdbData(data));
-        console.log(dbData);
+        API.get("api0a0ce0d7", "/items/dataReqBurner", {}).then((res) =>
+          //console.log(res)
+          setdbData(res)
+        );
       } else {
         alert("검색결과가 없습니다.");
         sval = null;
@@ -228,8 +214,10 @@ function ProductList() {
     <div className="main-content">
       {/* <Highlight fil={posts}></Highlight> */}
 
-      <Box className="product">
-        <h2>해시태그</h2>
+      <p>해시태그 선택 시, 해당 내용이 포함된 리뷰만 보여집니다.</p>
+
+      <h2>해시태그</h2>
+      <Box>
         {hashTag_Top10.map((word, index) => {
           return (
             <div>
@@ -252,9 +240,11 @@ function ProductList() {
             </div>
           );
         })}
-        <h2>선택된 해시태그</h2>
+      </Box>
+      <h2>선택된 해시태그</h2>
+      <Box>
         {currentHash.map((i) => {
-          return <p>{i}</p>;
+          return <StyledButton>{i}</StyledButton>;
         })}
       </Box>
       <p>상품 정렬 기준</p>
@@ -273,7 +263,6 @@ function ProductList() {
       </select>
 
       <table>
-        상품목록
         <tbody>
           {sortOpt === undefined &&
             dbData
@@ -291,7 +280,7 @@ function ProductList() {
                   <tr key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -299,28 +288,21 @@ function ProductList() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
+                      {/* <Highlighter
                         searchWords={currentHash}
                         autoEscape={true}
                         textToHighlight={item.ProductReview}
-                      ></Highlighter>
-                      {/* <ShowMoreText more="...더보기" less="숨기기">
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
-                    </ShowMoreText> */}
+                      ></Highlighter> */}
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <Box className="product-price">{item.ProductPrice}</Box>
-                    <td>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </td>
-                    <td>
-                      <button>도움이 됐어요</button>
-                    </td>
                   </tr>
                 );
               })}
@@ -339,7 +321,7 @@ function ProductList() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -347,21 +329,16 @@ function ProductList() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <Box className="product-price">{item.ProductPrice}</Box>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}
@@ -386,7 +363,7 @@ function ProductList() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -394,21 +371,16 @@ function ProductList() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <div className="product-price">{item.ProductPrice}</div>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}
@@ -433,7 +405,7 @@ function ProductList() {
                   <div key={index} className="product">
                     <Box className="productImage">
                       <a href={item.ProductURL} target="_blank">
-                        <img src={item.ProductImg} height="150"></img>
+                        <img src={item.ProductImg} height="100"></img>
                       </a>
                     </Box>
                     <TitleBox className="product-title">
@@ -441,21 +413,16 @@ function ProductList() {
                     </TitleBox>
                     <ReviewBox className="product-review">
                       {/* https://www.npmjs.com/package/react-show-more-text */}
-                      <Highlighter
-                        searchWords={currentHash}
-                        autoEscape={true}
-                        textToHighlight={item.ProductReview}
-                      ></Highlighter>
+                      <ShowMoreText more="...더보기" less="숨기기">
+                        <Highlighter
+                          searchWords={currentHash}
+                          autoEscape={true}
+                          textToHighlight={item.ProductReview}
+                        ></Highlighter>
+                      </ShowMoreText>
                     </ReviewBox>
                     {/* <div className="product-title">{item.ProductTitle}</div> */}
                     <div className="product-price">{item.ProductPrice}</div>
-                    <div>
-                      <p>0</p>
-                      <p>명이 도움을 받음</p>
-                    </div>
-                    <div>
-                      <button>도움이 됐어요</button>
-                    </div>
                   </div>
                 );
               })}
